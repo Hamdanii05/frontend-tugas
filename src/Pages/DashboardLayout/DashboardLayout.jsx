@@ -11,8 +11,8 @@ const DashboardLayout = () => {
       <Sidebar />
 
       <div className='dashboard-main'>
-        <MyNavbar search={search} setSearch={setSearch}/>
         <main className="dashboard-content">
+        <MyNavbar search={search} setSearch={setSearch}/>
             <Outlet context={search}/>
         </main>
       </div>

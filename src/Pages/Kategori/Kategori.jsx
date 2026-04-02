@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import {NavLink, useOutletContext} from "react-router-dom"
 import axios from "axios"
 import Card from "../../Components/Card/Card";
-
+import "./Kategori.css"
 
 
 const Kategori = () => {
@@ -62,11 +62,6 @@ const Kategori = () => {
         <h3>Daftar Kategori</h3>
         <NavLink to="/dashboard/kategori/add">Tambah Kategori</NavLink>
       </div>
-
-      <Card>
-        <h3>Ini judul Card</h3>
-        <p>Ini konten card</p>
-      </Card>
 
       <div className="table-wrapper">
             <table border={1}>

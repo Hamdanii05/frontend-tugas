@@ -1,0 +1,123 @@
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+.kategori-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  border: #cfcfcf 1px solid;
+  border-radius: 10px;
+}
+
+.kategori-header h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000;
+}
+
+.kategori-header a {
+  background-color: #00812b;
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.table-wrapper {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse; 
+  border: none; 
+}
+
+thead tr {
+  background-color: #0081cc;
+  color: white;
+}
+
+th {
+  padding: 12px 15px;
+  font-weight: 600;
+  text-align: center;
+  border: none; 
+}
+
+td {
+  padding: 20px 15px;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0; 
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  color: #333;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+td button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  margin: 0 4px;
+}
+
+td button:first-of-type {
+  background-color: #007bc4; 
+}
+
+td button:last-of-type {
+  background-color: #ff4d4d; 
+}
+
+td img {
+  border-radius: 4px;
+  max-width: 100px;
+  height: auto;
+}
+
+
+.pagination {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.btn-page {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;            
+  background-color: #3b82f6;      
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15); 
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+}
+
+.btn-page:hover:not(:disabled) {
+  background-color: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.btn-page:disabled {
+  background-color: #93c5fd;
+  cursor: not-allowed;
+  box-shadow: none;
+}
