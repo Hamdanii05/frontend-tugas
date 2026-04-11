@@ -1,35 +1,35 @@
 import { useEffect, useState } from "react"
-import {NavLink, useOutletContext, useNavigate} from "react-router-dom"
+import {NavLink, useOutletContext,useNavigate} from "react-router-dom"
 import axios from "axios"
 import Card from "../../Components/Card/Card";
-import "./Kategori.css"
 
 
-const Kategori = () => {
-    const [categories, setCategories] = useState([]);
+
+const Kartu = () => {
+    const navigate = useNavigate();
+    const [kartu, setKartu] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const search = useOutletContext();
-    const navigate = useNavigate();
 
     useEffect(() => {
-        getProductCategories();
+        getKartu();
     },[])
 
-    const getProductCategories = async() => {
+    const getKartu = async() => {
         try {
             const result = await axios.get(
-                `${import.meta.env.VITE_API_URL}/jenis-produk`,
+                `${import.meta.env.VITE_API_URL}/kartu`,
             );
-            // console.log(categories);
-            setCategories(result.data.data)
+            // console.log(kartu);
+            setKartu(result.data.data)
         } catch (error) {
             console.log(error);
             
         }
     }
 
-    const filteredData = categories.filter((category) => {
-        return category.nama?.toLowerCase().includes(search.toLowerCase());
+    const filteredData = kartu.filter((card) => {
+        return card.kode?.toLowerCase().includes(search.toLowerCase());
     });
 
     const ITEMS_PER_PAGE = 10;
@@ -48,23 +48,23 @@ const Kategori = () => {
         const msg = window.confirm("Yakin ingin menghapus kategori ini?");
         if (!msg) return;
         try {
-            await axios.delete(`${import.meta.env.VITE_API_URL}/jenis-produk/${uuid}`)
-            getProductCategories()
+            await axios.delete(`${import.meta.env.VITE_API_URL}/kartu/${uuid}`)
+            getKartu()
         } catch (error) {
             console.log(error);
             
         }
             
     }
-
     const handleEdit = (uuid) => {
-        navigate(`/dashboard/kategori/edit/${uuid}`);
+        navigate(`/dashboard/kartu/edit/${uuid}`);
     }
+
   return (
     <div>
       <div className='kategori-header'>
-        <h3>Daftar Kategori</h3>
-        <NavLink to="/dashboard/kategori/add">Tambah Kategori</NavLink>
+        <h3>Daftar Kartu</h3>
+        <NavLink to="/dashboard/kartu/add">Tambah Kartu</NavLink>
       </div>
 
       <div className="table-wrapper">
@@ -72,23 +72,27 @@ const Kategori = () => {
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>Kode</th>
                         <th>Nama</th>
-                        <th>Gambar</th>
+                        <th>Diskon</th>
+                        <th>Iuran</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                 {
-                    paginatedData.map((category, index) => (
+                    paginatedData.map((card, index) => (
                     <tr key={index}>    
                         <td>{(currentPage - 1) * ITEMS_PER_PAGE + index + 1}</td>
-                        <td>{category.nama}</td>
+                        <td>{card.kode}</td>
                         <td>
-                            <img src={category.url} alt="gambar" width={120} />
+                           {card.nama}
                         </td>
+                        <td>{card.diskon}</td>
+                        <td>{card.iuran}</td>
                         <td>
-                            <button onClick={() => handleEdit(category.uuid)}>Edit</button>
-                            <button onClick={() => handleDelete(category.uuid)}>Delete</button>
+                            <button onClick={() => handleEdit(card.uuid)}>Edit</button>
+                            <button onClick={() => handleDelete(card.uuid)}>Delete</button>
                         </td>
                     </tr>
                     ))}
@@ -125,4 +129,4 @@ const Kategori = () => {
   )
 }
 
-export default Kategori;
+export default Kartu;

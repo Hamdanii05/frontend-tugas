@@ -1,35 +1,34 @@
 import { useEffect, useState } from "react"
-import {NavLink, useOutletContext, useNavigate} from "react-router-dom"
+import {NavLink, useOutletContext} from "react-router-dom"
 import axios from "axios"
 import Card from "../../Components/Card/Card";
-import "./Kategori.css"
 
 
-const Kategori = () => {
-    const [categories, setCategories] = useState([]);
+
+const Users = () => {
+    const [player, setPlayer] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const search = useOutletContext();
-    const navigate = useNavigate();
 
     useEffect(() => {
-        getProductCategories();
+        getPlayer();
     },[])
 
-    const getProductCategories = async() => {
+    const getPlayer = async() => {
         try {
             const result = await axios.get(
-                `${import.meta.env.VITE_API_URL}/jenis-produk`,
+                `${import.meta.env.VITE_API_URL}/users`,
             );
-            // console.log(categories);
-            setCategories(result.data.data)
+            // console.log(player);
+            setPlayer(result.data.data)
         } catch (error) {
             console.log(error);
             
         }
     }
 
-    const filteredData = categories.filter((category) => {
-        return category.nama?.toLowerCase().includes(search.toLowerCase());
+    const filteredData = player.filter((user) => {
+        return user.uuid?.toLowerCase().includes(search.toLowerCase());
     });
 
     const ITEMS_PER_PAGE = 10;
@@ -48,8 +47,8 @@ const Kategori = () => {
         const msg = window.confirm("Yakin ingin menghapus kategori ini?");
         if (!msg) return;
         try {
-            await axios.delete(`${import.meta.env.VITE_API_URL}/jenis-produk/${uuid}`)
-            getProductCategories()
+            await axios.delete(`${import.meta.env.VITE_API_URL}/users/${uuid}`)
+            getPlayer()
         } catch (error) {
             console.log(error);
             
@@ -57,14 +56,11 @@ const Kategori = () => {
             
     }
 
-    const handleEdit = (uuid) => {
-        navigate(`/dashboard/kategori/edit/${uuid}`);
-    }
   return (
     <div>
       <div className='kategori-header'>
-        <h3>Daftar Kategori</h3>
-        <NavLink to="/dashboard/kategori/add">Tambah Kategori</NavLink>
+        <h3>Daftar Users</h3>
+        {/* <NavLink to="/dashboard/kategori/add">Tambah Users</NavLink> */}
       </div>
 
       <div className="table-wrapper">
@@ -72,23 +68,29 @@ const Kategori = () => {
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama</th>
+                        <th>Email</th>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Status</th>
                         <th>Gambar</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                 {
-                    paginatedData.map((category, index) => (
+                    paginatedData.map((user, index) => (
                     <tr key={index}>    
                         <td>{(currentPage - 1) * ITEMS_PER_PAGE + index + 1}</td>
-                        <td>{category.nama}</td>
                         <td>
-                            <img src={category.url} alt="gambar" width={120} />
+                           {user.username}
                         </td>
+                        <td>{user.email}</td>
+                        <td>{user.role}</td>
+                        <td>{user.status}</td>
+                        <td>{user.gambar}</td>
                         <td>
-                            <button onClick={() => handleEdit(category.uuid)}>Edit</button>
-                            <button onClick={() => handleDelete(category.uuid)}>Delete</button>
+                            <button>Edit</button>
+                            <button onClick={() => handleDelete(user.uuid)}>Delete</button>
                         </td>
                     </tr>
                     ))}
@@ -125,4 +127,4 @@ const Kategori = () => {
   )
 }
 
-export default Kategori;
+export default Users;

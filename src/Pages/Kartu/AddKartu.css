@@ -1,0 +1,102 @@
+
+.form-wrapper {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+
+.user-header {
+  margin-bottom: 20px;
+  border-bottom: 2px solid #4c87af;
+  padding-bottom: 10px;
+}
+
+.user-header h3 {
+  color: #333;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.form-grid label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.form-grid input,
+.form-grid select,
+.form-grid textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.form-grid input:focus,
+.form-grid select:focus,
+.form-grid textarea:focus {
+  border-color: #4c8baf;
+  outline: none;
+}
+
+
+.error {
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+
+.btn-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-tambah {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.btn-tambah:hover {
+  background-color: #45a049;
+}
+
+.btn-delete {
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.btn-delete:hover {
+  background-color: #d32f2f;
+}
+
+.btn-tambah:disabled,
+.btn-delete:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

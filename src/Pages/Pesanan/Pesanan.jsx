@@ -1,35 +1,53 @@
 import { useEffect, useState } from "react"
-import {NavLink, useOutletContext, useNavigate} from "react-router-dom"
+import {NavLink, useOutletContext,useNavigate} from "react-router-dom"
 import axios from "axios"
 import Card from "../../Components/Card/Card";
-import "./Kategori.css"
 
 
-const Kategori = () => {
-    const [categories, setCategories] = useState([]);
+
+const Pesanan = () => {
+      const navigate = useNavigate();
+    const [pesanan, setPesanan] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const search = useOutletContext();
-    const navigate = useNavigate();
+    const [customer, setCustomer] = useState([]);
 
     useEffect(() => {
-        getProductCategories();
+        getPesanan();
+        getCustomer();
     },[])
 
-    const getProductCategories = async() => {
+    const getPesanan = async() => {
         try {
             const result = await axios.get(
-                `${import.meta.env.VITE_API_URL}/jenis-produk`,
+                `${import.meta.env.VITE_API_URL}/pesanan`,
             );
-            // console.log(categories);
-            setCategories(result.data.data)
+            // console.log(pesanan);
+            setPesanan(result.data.data)
         } catch (error) {
             console.log(error);
             
         }
     }
 
-    const filteredData = categories.filter((category) => {
-        return category.nama?.toLowerCase().includes(search.toLowerCase());
+    const getCustomer = async () => {
+        try {
+            const result = await axios.get(
+            `${import.meta.env.VITE_API_URL}/pelanggan`
+            );
+            setCustomer(result.data.data);
+        }   catch (error) {
+            console.log(error);
+        }
+    };
+
+    const getPelanggan = (id) => {
+        const found = customer.find((j) => j.id === id);
+            return found ? found.nama : "-";
+    };
+
+    const filteredData = pesanan.filter((pesan) => {
+        return pesan.tanggal?.toLowerCase().includes(search.toLowerCase());
     });
 
     const ITEMS_PER_PAGE = 10;
@@ -48,8 +66,8 @@ const Kategori = () => {
         const msg = window.confirm("Yakin ingin menghapus kategori ini?");
         if (!msg) return;
         try {
-            await axios.delete(`${import.meta.env.VITE_API_URL}/jenis-produk/${uuid}`)
-            getProductCategories()
+            await axios.delete(`${import.meta.env.VITE_API_URL}/pesanan/${uuid}`)
+            getPesanan()
         } catch (error) {
             console.log(error);
             
@@ -58,13 +76,13 @@ const Kategori = () => {
     }
 
     const handleEdit = (uuid) => {
-        navigate(`/dashboard/kategori/edit/${uuid}`);
+        navigate(`/dashboard/pesanan/edit/${uuid}`);
     }
   return (
     <div>
       <div className='kategori-header'>
-        <h3>Daftar Kategori</h3>
-        <NavLink to="/dashboard/kategori/add">Tambah Kategori</NavLink>
+        <h3>Daftar Pesanan</h3>
+        <NavLink to="/dashboard/pesanan/add">Tambah Pesanan</NavLink>
       </div>
 
       <div className="table-wrapper">
@@ -72,23 +90,25 @@ const Kategori = () => {
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama</th>
-                        <th>Gambar</th>
+                        <th>Tanggal</th>
+                        <th>Total</th>
+                        <th>Pelanggan</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                 {
-                    paginatedData.map((category, index) => (
+                    paginatedData.map((pesan, index) => (
                     <tr key={index}>    
                         <td>{(currentPage - 1) * ITEMS_PER_PAGE + index + 1}</td>
-                        <td>{category.nama}</td>
+                        <td>{pesan.tanggal}</td>
                         <td>
-                            <img src={category.url} alt="gambar" width={120} />
+                           {pesan.total}
                         </td>
+                        <td>{getPelanggan(pesan.pelanggan_id)}</td>
                         <td>
-                            <button onClick={() => handleEdit(category.uuid)}>Edit</button>
-                            <button onClick={() => handleDelete(category.uuid)}>Delete</button>
+                            <button onClick={() => handleEdit(pesan.uuid)}>Edit</button>
+                            <button onClick={() => handleDelete(pesan.uuid)}>Delete</button>
                         </td>
                     </tr>
                     ))}
@@ -125,4 +145,4 @@ const Kategori = () => {
   )
 }
 
-export default Kategori;
+export default Pesanan;

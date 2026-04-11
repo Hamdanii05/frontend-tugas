@@ -2,34 +2,64 @@ import { useEffect, useState } from "react"
 import {NavLink, useOutletContext, useNavigate} from "react-router-dom"
 import axios from "axios"
 import Card from "../../Components/Card/Card";
-import "./Kategori.css"
 
 
-const Kategori = () => {
-    const [categories, setCategories] = useState([]);
+
+const Pelanggan = () => {
+    const navigate = useNavigate();
+    const [pelanggan, setPelanggan] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const search = useOutletContext();
-    const navigate = useNavigate();
+    const [userList, setUserList] = useState([]);
+    const [kartuList, setKartuList] = useState([]);
 
     useEffect(() => {
         getProductCategories();
+        getKartu();
+        getUsers();
     },[])
 
     const getProductCategories = async() => {
         try {
             const result = await axios.get(
-                `${import.meta.env.VITE_API_URL}/jenis-produk`,
+                `${import.meta.env.VITE_API_URL}/pelanggan`,
             );
-            // console.log(categories);
-            setCategories(result.data.data)
+            // console.log(pelanggan);
+            setPelanggan(result.data.data)
         } catch (error) {
             console.log(error);
             
         }
     }
+    const getUsers = async () => {
+        try {
+        const result = await axios.get(`${import.meta.env.VITE_API_URL}/users`);
+        setUserList(result.data.data);
+        } catch (error) {
+        console.log(error);
+        }
+  };
 
-    const filteredData = categories.filter((category) => {
-        return category.nama?.toLowerCase().includes(search.toLowerCase());
+    const getNamaPelanggan = (id) => {
+        const found = userList.find((j) => j.id === id);
+            return found ? found.username : "-";
+    };
+
+    const getKartu = async () => {
+        try {
+        const result = await axios.get(`${import.meta.env.VITE_API_URL}/kartu`);
+        setKartuList(result.data.data);
+        } catch (error) {
+        console.log(error);
+        }
+  };
+    const getNamaKartu = (id) => {
+        const found = kartuList.find((j) => j.id === id);
+            return found ? found.nama : "-";
+    };
+
+    const filteredData = pelanggan.filter((planggan) => {
+        return planggan.nama?.toLowerCase().includes(search.toLowerCase());
     });
 
     const ITEMS_PER_PAGE = 10;
@@ -48,7 +78,7 @@ const Kategori = () => {
         const msg = window.confirm("Yakin ingin menghapus kategori ini?");
         if (!msg) return;
         try {
-            await axios.delete(`${import.meta.env.VITE_API_URL}/jenis-produk/${uuid}`)
+            await axios.delete(`${import.meta.env.VITE_API_URL}/pelanggan/${uuid}`)
             getProductCategories()
         } catch (error) {
             console.log(error);
@@ -56,15 +86,15 @@ const Kategori = () => {
         }
             
     }
-
     const handleEdit = (uuid) => {
-        navigate(`/dashboard/kategori/edit/${uuid}`);
+        navigate(`/dashboard/pelanggan/edit/${uuid}`);
     }
+
   return (
     <div>
       <div className='kategori-header'>
-        <h3>Daftar Kategori</h3>
-        <NavLink to="/dashboard/kategori/add">Tambah Kategori</NavLink>
+        <h3>Daftar Pelanggan</h3>
+        <NavLink to="/dashboard/pelanggan/add">Tambah Pelanggan</NavLink>
       </div>
 
       <div className="table-wrapper">
@@ -73,22 +103,32 @@ const Kategori = () => {
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
-                        <th>Gambar</th>
-                        <th>Aksi</th>
+                        <th>Gender</th>
+                        <th>No hp</th>
+                        <th>Alamat</th>
+                        <th>Tgl lahir</th>
+                        <th>User</th>
+                        <th>Kartu</th>
+                        <th>aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                 {
-                    paginatedData.map((category, index) => (
+                    paginatedData.map((planggan, index) => (
                     <tr key={index}>    
                         <td>{(currentPage - 1) * ITEMS_PER_PAGE + index + 1}</td>
-                        <td>{category.nama}</td>
+                        <td>{planggan.nama}</td>
                         <td>
-                            <img src={category.url} alt="gambar" width={120} />
+                           {planggan.gender}
                         </td>
+                        <td>{planggan.no_hp}</td>
+                        <td>{planggan.alamat}</td>
+                        <td>{planggan.tgl_lahir}</td>
+                        <td>{getNamaPelanggan(planggan.user_id)}</td>
+                        <td>{getNamaKartu(planggan.kartu_id)}</td>
                         <td>
-                            <button onClick={() => handleEdit(category.uuid)}>Edit</button>
-                            <button onClick={() => handleDelete(category.uuid)}>Delete</button>
+                            <button onClick={() => handleEdit(planggan.uuid)}>Edit</button>
+                            <button onClick={() => handleDelete(planggan.uuid)}>Delete</button>
                         </td>
                     </tr>
                     ))}
@@ -125,4 +165,4 @@ const Kategori = () => {
   )
 }
 
-export default Kategori;
+export default Pelanggan;
