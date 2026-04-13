@@ -29,7 +29,8 @@ const Produk = () => {
             
         }
     }
-        const getJenisProduk = async () => {
+    
+    const getJenisProduk = async () => {
         try {
             const result = await axios.get(
             `${import.meta.env.VITE_API_URL}/jenis-produk`

@@ -21,13 +21,14 @@ import EditProduk from './Pages/Produk/EditProduk';
 import EditPelanggan from './Pages/Pelanggan/EditPelanggan';
 import EditPesanan from './Pages/Pesanan/EditPesanan';
 import Login from './Pages/Login/Login'
+import LandingPage from './Pages/LandingPage/CTA';
 
 function App() {
 
   return (
     <>
     <Routes>
-      <Route path='/' element={<h1>Hello World</h1>}/>
+      <Route path='/' element={<LandingPage/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/dashboard' element={<DashboardLayout />}>
       

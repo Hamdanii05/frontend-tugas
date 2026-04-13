@@ -1,0 +1,193 @@
+
+.cta-banner {
+  background-color: #226cb1; 
+  color: #fff;
+  padding: 60px 20px;
+  text-align: center;
+  margin: 0 20px 0 20px;
+  border-radius: 20px;
+  font-family: "Poppins", sans-serif;
+  height: 180px;
+}
+
+.cta-content h2 {
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.cta-content p {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+.cta-button {
+  background-color: #fff;
+  color: #226cb1;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 150px;
+  height: 45px;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #f1f1f1;
+}
+
+.kategori-container {
+  padding: 0 23px; 
+  margin-top: 20px;
+  color: #3975cf;
+}
+
+.kategori-container h3 {
+  margin-bottom: 10px;
+}
+
+.kategori {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scrollbar-width: none; 
+    flex-wrap: wrap; 
+    gap: 10px;
+}
+
+.btn-kategori {
+  white-space: nowrap;
+  padding: 7px 20px;
+  font-size: 14px;
+  background: white;
+  border: none;
+  color: #226cb1;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-kategori:hover {
+  background: #226cb1; 
+  color: white;        
+}
+
+
+.produk-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.card-img img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 12px;
+}
+
+.card-title {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.card-price {
+  color: #226cb1;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card-btn {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background: #226cb1;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.card-category {
+  color: #226cb1;
+  margin-bottom: 10px;
+}
+.card-stok {
+  color: grey;
+}
+
+.card-btn:hover {
+  background: #226cb1;
+}
+
+.empty {
+  text-align: center;
+  padding: 20px;
+}
+.btn-kategori.active {
+  background: #226cb1;
+  color: white;       
+}
+
+.btn {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; 
+  margin-top: 10px;
+}
+
+.btn button {
+  flex: 1; 
+  padding: 10px 0;
+  font-size: 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+
+.btn button:first-child {
+  background: white;
+  border: 2px solid #226cb1;
+  color: #226cb1;
+  font-weight: bold;
+}
+.btn button:first-child:hover {
+  background: #226cb1;
+  color: #e7ecee;
+}
+
+
+.btn button:last-child {
+  background: #226cb1;
+  border: 2px solid #226cb1;
+  color: white;
+  font-weight: bold;
+}
+.btn button:last-child:hover {
+  background: #e7ecee;
+  color: #226cb1;
+}
