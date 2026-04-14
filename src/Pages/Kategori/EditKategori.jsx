@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {useNavigate, useParams} from "react-router-dom"
-import axios from "axios"
+import axiosInstance from "../../Utils/axiosInstance";
 import { useEffect } from 'react';
 
 const EditKategori = () => {
@@ -19,7 +19,7 @@ const EditKategori = () => {
     const getCategoriesByUUID = async() => {
         setLoading(true);
         try {
-            const categories = await axios.get(`${import.meta.env.VITE_API_URL}/jenis-produk/${uuid}`);
+            const categories = await axiosInstance.get(`${import.meta.env.VITE_API_URL}/jenis-produk/${uuid}`);
             console.log(categories);
             setNamaKategori(categories.data.data.nama);
             setPreview(categories.data.data.url);
@@ -36,7 +36,7 @@ const EditKategori = () => {
         setLoading(true);
         setErrors([]);
         try {
-            await axios.put(`${import.meta.env.VITE_API_URL}/jenis-produk/${uuid}`,{
+            await axiosInstance.put(`${import.meta.env.VITE_API_URL}/jenis-produk/${uuid}`,{
                 nama: namaKategori,
                 gambar
             },{

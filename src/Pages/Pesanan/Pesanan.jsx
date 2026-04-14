@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import {NavLink, useOutletContext,useNavigate} from "react-router-dom"
-import axios from "axios"
+import axiosInstance from "../../Utils/axiosInstance";
 import Card from "../../Components/Card/Card";
 
 
@@ -19,7 +19,7 @@ const Pesanan = () => {
 
     const getPesanan = async() => {
         try {
-            const result = await axios.get(
+            const result = await axiosInstance.get(
                 `${import.meta.env.VITE_API_URL}/pesanan`,
             );
             // console.log(pesanan);
@@ -32,7 +32,7 @@ const Pesanan = () => {
 
     const getCustomer = async () => {
         try {
-            const result = await axios.get(
+            const result = await axiosInstance.get(
             `${import.meta.env.VITE_API_URL}/pelanggan`
             );
             setCustomer(result.data.data);
@@ -66,7 +66,7 @@ const Pesanan = () => {
         const msg = window.confirm("Yakin ingin menghapus kategori ini?");
         if (!msg) return;
         try {
-            await axios.delete(`${import.meta.env.VITE_API_URL}/pesanan/${uuid}`)
+            await axiosInstance.delete(`${import.meta.env.VITE_API_URL}/pesanan/${uuid}`)
             getPesanan()
         } catch (error) {
             console.log(error);

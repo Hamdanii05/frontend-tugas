@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {useNavigate, useParams} from "react-router-dom"
-import axios from "axios"
+import axiosInstance from "../../Utils/axiosInstance";
 import { useEffect } from 'react';
 
 const EditProduk = () => {
@@ -25,7 +25,7 @@ const EditProduk = () => {
     const getCategoriesByUUID = async() => {
         setLoading(true);
         try {
-            const categories = await axios.get(`${import.meta.env.VITE_API_URL}/produk/${uuid}`);
+            const categories = await axiosInstance.get(`${import.meta.env.VITE_API_URL}/produk/${uuid}`);
             console.log(categories);
             setNamaBarang(categories.data.data.nama_barang);
             setStok(categories.data.data.stok);
@@ -46,7 +46,7 @@ const EditProduk = () => {
         setLoading(true);
         setErrors({});
         try {
-            await axios.put(`${import.meta.env.VITE_API_URL}/produk/${uuid}`,{
+            await axiosInstance.put(`${import.meta.env.VITE_API_URL}/produk/${uuid}`,{
                 nama_barang : namaBarang,
                 stok,
                 min_stok : minStok,
@@ -72,7 +72,7 @@ const EditProduk = () => {
 
     const getKategori = async () => {
         try {
-            const result = await axios.get(
+            const result = await axiosInstance.get(
             `${import.meta.env.VITE_API_URL}/jenis-produk`
             );
             // console.log(result.data); 

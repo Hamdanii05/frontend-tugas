@@ -1,4 +1,4 @@
-import axios from "axios"
+import axiosInstance from "../../Utils/axiosInstance";
 import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ const AddKategori = () => {
         setLoading(true);
         setErrors({});
         try {
-             await axios.post(`${import.meta.env.VITE_API_URL}/jenis-produk`,{
+             await axiosInstance.post(`${import.meta.env.VITE_API_URL}/jenis-produk`,{
                 nama:namaKategori,
                 gambar,
             },

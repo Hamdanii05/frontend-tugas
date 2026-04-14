@@ -1,4 +1,4 @@
-import axios from "axios"
+import axiosInstance from "../../Utils/axiosInstance";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -29,7 +29,7 @@ const EditPelanggan = () => {
   const getPelangganById = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(
+      const res = await axiosInstance.get(
         `${import.meta.env.VITE_API_URL}/pelanggan/${uuid}`
       );
 
@@ -55,7 +55,7 @@ const EditPelanggan = () => {
     setErrors({});
 
     try {
-      await axios.put(
+      await axiosInstance.put(
         `${import.meta.env.VITE_API_URL}/pelanggan/${uuid}`,
         {
           nama,
@@ -81,7 +81,7 @@ const EditPelanggan = () => {
 
   const getUsers = async () => {
     try {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/users`);
+      const result = await axiosInstance.get(`${import.meta.env.VITE_API_URL}/users`);
       setUserList(result.data.data);
     } catch (error) {
       console.log(error);
@@ -90,7 +90,7 @@ const EditPelanggan = () => {
 
   const getKartu = async () => {
     try {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/kartu`);
+      const result = await axiosInstance.get(`${import.meta.env.VITE_API_URL}/kartu`);
       setKartuList(result.data.data);
     } catch (error) {
       console.log(error);

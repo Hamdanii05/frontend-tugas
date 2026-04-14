@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import {NavLink, useOutletContext,useNavigate} from "react-router-dom"
-import axios from "axios"
+import axiosInstance from "../../Utils/axiosInstance";
 import Card from "../../Components/Card/Card";
 
 
@@ -17,7 +17,7 @@ const Kartu = () => {
 
     const getKartu = async() => {
         try {
-            const result = await axios.get(
+            const result = await axiosInstance.get(
                 `${import.meta.env.VITE_API_URL}/kartu`,
             );
             // console.log(kartu);
@@ -48,7 +48,7 @@ const Kartu = () => {
         const msg = window.confirm("Yakin ingin menghapus kategori ini?");
         if (!msg) return;
         try {
-            await axios.delete(`${import.meta.env.VITE_API_URL}/kartu/${uuid}`)
+            await axiosInstance.delete(`${import.meta.env.VITE_API_URL}/kartu/${uuid}`)
             getKartu()
         } catch (error) {
             console.log(error);

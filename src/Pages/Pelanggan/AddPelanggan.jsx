@@ -1,4 +1,4 @@
-import axios from "axios"
+import axiosInstance from "../../Utils/axiosInstance";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -31,7 +31,7 @@ const AddPelanggan = () => {
     setLoading(true);
     setErrors({});
     try {
-      await axios.post(
+      await axiosInstance.post(
         `${import.meta.env.VITE_API_URL}/pelanggan`,
         {
           nama,
@@ -61,7 +61,7 @@ const AddPelanggan = () => {
 
   const getUsers = async () => {
     try {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/users`);
+      const result = await axiosInstance.get(`${import.meta.env.VITE_API_URL}/users`);
       setUserList(result.data.data);
     } catch (error) {
       console.log(error);
@@ -70,7 +70,7 @@ const AddPelanggan = () => {
 
   const getKartu = async () => {
     try {
-      const result = await axios.get(`${import.meta.env.VITE_API_URL}/kartu`);
+      const result = await axiosInstance.get(`${import.meta.env.VITE_API_URL}/kartu`);
       setKartuList(result.data.data);
     } catch (error) {
       console.log(error);

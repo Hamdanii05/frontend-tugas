@@ -22,6 +22,7 @@ import EditPelanggan from './Pages/Pelanggan/EditPelanggan';
 import EditPesanan from './Pages/Pesanan/EditPesanan';
 import Login from './Pages/Login/Login'
 import LandingPage from './Pages/LandingPage/CTA';
+import Checkout from './Pages/Checkout/Checkout';
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
     <>
     <Routes>
       <Route path='/' element={<LandingPage/>}/>
+      <Route path='/checkout/:uuid' element={<Checkout/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/dashboard' element={<DashboardLayout />}>
       

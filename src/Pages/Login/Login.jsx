@@ -1,7 +1,7 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import {NavLink, replace, useNavigate} from "react-router-dom"
-import {jwtDecode} from "jwt-decode"
+import { NavLink, useNavigate } from "react-router-dom"
+import { jwtDecode } from "jwt-decode"
+import axiosInstance from "../../Utils/axiosInstance"
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,77 +11,72 @@ const Login = () => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/login`, {
-        username,
-        password
-      }
-    );
+      const response = await axiosInstance.post(
+        `${import.meta.env.VITE_API_URL}/login`,
+        { username, password }
+      );
+
       const token = response.data.token;
       localStorage.setItem("token", token);
 
-      const decoded = (token);
-     
-    if (decoded.role === "jwtDecodepelanggan") {
-      navigate("/")
-    }else {
-      navigate("/dashboard")
-    }
-      console.log(response);
-     
-      navigate("/dashboard");
+      const decoded = jwtDecode(token); 
+
+      if (decoded.role === "pelanggan") {
+        navigate("/", { replace: true });
+      } else {
+        navigate("/dashboard", { replace: true });
+      }
+
     } catch (error) {
       console.log(error.response);
-      
     }
-
   }
 
-    useEffect(() => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        const decoded = jwtDecode(token);
-        if (decoded.role == "pelanggan") {
-          navigate("/", {replace : true})
-        }else {
-          navigate("/dashboard", {replace : true})
-        }
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decoded = jwtDecode(token);
+      if (decoded.role === "pelanggan") {
+        navigate("/", { replace: true });
+      } else {
+        navigate("/dashboard", { replace: true });
       }
-    }, [])
-
+    }
+  }, [navigate]);
 
   return (
     <div className='login-page'>
       <div className="login-card">
         <div className="login-logo">
-            <NavLink>
-                <div className="login-logo-icon"></div>
-            </NavLink>
-            <h2>PeTIK Niaga</h2>
-            <p>Login</p>
+          <NavLink>
+            <div className="login-logo-icon"></div>
+          </NavLink>
+          <h2>PeTIK Niaga</h2>
+          <p>Login</p>
         </div>
       </div>
-      <form onSubmit={handleSubmit}  className="login-form">
+      <form onSubmit={handleSubmit} className="login-form">
         <div className="login-field">
-        <label htmlFor="username">Username</label>
-        <input 
-          type="text" 
-          placeholder='Masukkan username' 
-          onChange={(e) => setUsername(e.target.value)}
-          value={username}
-          required
-          autoFocus
+          <label htmlFor="username">Username</label>
+          <input 
+            type="text" 
+            placeholder='Masukkan username' 
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
+            required
+            autoFocus
           />
         </div>
         
         <div className="login-field">
-        <label htmlFor="password">Password</label>
-        <input 
-          type="password" 
-          autoComplete="current-password"
-          placeholder='Masukkan password' 
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-          required
+          <label htmlFor="password">Password</label>
+          <input 
+            type="password" 
+            autoComplete="current-password"
+            placeholder='Masukkan password' 
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            required
           />
         </div>
 
@@ -91,4 +86,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Login;

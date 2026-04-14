@@ -2,9 +2,9 @@ import React from "react";
 import "./NavbarLandingPage.css";
 import { useNavigate } from "react-router-dom";
 
-const MyNavbar = () => {
+const NavbarLandingPage = () => {
   const navigate = useNavigate();
-
+  
   return (
     <nav className="navbar">
       <div className="navbar-left">
@@ -31,4 +31,4 @@ const MyNavbar = () => {
   );
 };
 
-export default MyNavbar;
+export default NavbarLandingPage;

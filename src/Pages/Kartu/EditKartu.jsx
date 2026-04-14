@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {useNavigate, useParams} from "react-router-dom"
-import axios from "axios"
+import axiosInstance from "../../Utils/axiosInstance";
 import { useEffect } from 'react';
 
 const EditKartu = () => {
@@ -20,7 +20,7 @@ const EditKartu = () => {
     const getCategoriesByUUID = async() => {
         setLoading(true);
         try {
-            const categories = await axios.get(`${import.meta.env.VITE_API_URL}/kartu/${uuid}`);
+            const categories = await axiosInstance.get(`${import.meta.env.VITE_API_URL}/kartu/${uuid}`);
             console.log(categories);
             setKode(categories.data.data.kode);
             setNamaKartu(categories.data.data.nama);
@@ -39,7 +39,7 @@ const EditKartu = () => {
         setLoading(true);
         setErrors({});
         try {
-            await axios.put(`${import.meta.env.VITE_API_URL}/kartu/${uuid}`,{
+            await axiosInstance.put(`${import.meta.env.VITE_API_URL}/kartu/${uuid}`,{
                 kode,
                 nama : namaKartu,
                 diskon,

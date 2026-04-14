@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import NavbarLandingPage from "../../Components/NavbarLandingPage/NavbarLandingPage";
 import "./CTA.css";
-import axios from "axios";
+import axiosInstance from "../../Utils/axiosInstance";
 import keranjang from "../../assets/keranjang.jpeg";
 import Footer from "../../Components/Footer/Footer";
+import { useNavigate, useParams } from "react-router-dom";
 
 const CTA = () => {
+  const navigate = useNavigate()
   const [kategori, setKategori] = useState([]);
   const [selectedKategori, setSelectedKategori] = useState("Semua");
   const [produk, setProduk] = useState([]);
-   const [jenisProduk, setJenisProduk] = useState([]);
+  const [jenisProduk, setJenisProduk] = useState([]);
 
   useEffect(() => {
     getJenisProduk();
@@ -18,7 +20,7 @@ const CTA = () => {
   useEffect(() => {
     const getKategori = async () => {
       try {
-        const res = await axios.get("https://apiniaga.psjpetik.my.id/api/v1/jenis-produk");
+        const res = await axiosInstance.get("https://apiniaga.psjpetik.my.id/api/v1/jenis-produk");
         setKategori(res.data.data); 
       } catch (error) {
         console.log(error.response);
@@ -30,7 +32,7 @@ const CTA = () => {
   useEffect(() => {
     const getProduk = async () => {
       try {
-        const res = await axios.get("https://apiniaga.psjpetik.my.id/api/v1/produk");
+        const res = await axiosInstance.get("https://apiniaga.psjpetik.my.id/api/v1/produk");
         setProduk(res.data.data);
       } catch (error) {
         console.log(error.response);
@@ -41,7 +43,7 @@ const CTA = () => {
 
   const getJenisProduk = async () => {
         try {
-            const result = await axios.get(
+            const result = await axiosInstance.get(
             `${import.meta.env.VITE_API_URL}/jenis-produk`
             );
             setJenisProduk(result.data.data);
@@ -59,6 +61,10 @@ const CTA = () => {
     selectedKategori === "Semua"
       ? produk
       : produk.filter((item) => item.jenis_produk_id === selectedKategori);
+
+    const handleBuy = (uuid) => {
+     navigate(`/checkout/${uuid}`);
+    };
 
   return (
     <div>
@@ -95,7 +101,7 @@ const CTA = () => {
       <div className="produk-container">
         {filteredProduk.length > 0 ? (
           filteredProduk.map((item) => (
-            <div key={item.id} className="card">
+            <div key={item.id} className="card-gambar">
               <div className="card-img">
                 <img
                   src={item.url || keranjang}
@@ -112,7 +118,7 @@ const CTA = () => {
                 <p className="card-price">Rp {item.harga?.toLocaleString("id-ID")}</p>
                 <div className="btn">
                   <button>+Keranjang</button>
-                  <button>Beli</button>
+                <button onClick={() => handleBuy(item.uuid)}>Beli</button>
                 </div>
               </div>
             </div>

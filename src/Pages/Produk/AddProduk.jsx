@@ -1,4 +1,4 @@
-import axios from "axios"
+import axiosInstance from "../../Utils/axiosInstance";
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -27,7 +27,7 @@ const AddProduk = () => {
         setLoading(true);
         setErrors({});
         try {
-            await axios.post(`${import.meta.env.VITE_API_URL}/produk`,{
+            await axiosInstance.post(`${import.meta.env.VITE_API_URL}/produk`,{
                 nama_barang: namaProduk,
                 stok,
                 min_stok : minStok,
@@ -52,7 +52,7 @@ const AddProduk = () => {
 
     const getKategori = async () => {
         try {
-            const result = await axios.get(
+            const result = await axiosInstance.get(
             `${import.meta.env.VITE_API_URL}/jenis-produk`
             );
             // console.log(result.data); 

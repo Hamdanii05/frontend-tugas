@@ -1,4 +1,4 @@
-import axios from "axios"
+import axiosInstance from "../../Utils/axiosInstance";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AddKartu.css"
@@ -20,7 +20,7 @@ const AddKartu = () => {
     setLoading(true);
     setErrors({});
     try {
-      await axios.post(
+      await axiosInstance.post(
         `${import.meta.env.VITE_API_URL}/kartu`,
         {
           kode,

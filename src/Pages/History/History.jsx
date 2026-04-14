@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import {NavLink, useOutletContext} from "react-router-dom"
-import axios from "axios"
+import axiosInstance from "../../Utils/axiosInstance";
 import Card from "../../Components/Card/Card";
 
 
@@ -16,7 +16,7 @@ const History = () => {
 
     const getRiwayat = async() => {
         try {
-            const result = await axios.get(
+            const result = await axiosInstance.get(
                 `${import.meta.env.VITE_API_URL}/history`,
             );
             // console.log(riwayat);
@@ -47,7 +47,7 @@ const History = () => {
         const msg = window.confirm("Yakin ingin menghapus kategori ini?");
         if (!msg) return;
         try {
-            await axios.delete(`${import.meta.env.VITE_API_URL}/history/${uuid}`)
+            await axiosInstance.delete(`${import.meta.env.VITE_API_URL}/history/${uuid}`)
             getRiwayat()
         } catch (error) {
             console.log(error);

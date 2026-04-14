@@ -1,4 +1,4 @@
-import axios from "axios"
+import axiosInstance from "../../Utils/axiosInstance";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -23,7 +23,7 @@ const EditPesanan = () => {
   const getPesananByUUID = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(
+      const res = await axiosInstance.get(
         `${import.meta.env.VITE_API_URL}/pesanan/${uuid}`
       );
 
@@ -41,7 +41,7 @@ const EditPesanan = () => {
 
   const getPelanggan = async () => {
     try {
-      const result = await axios.get(
+      const result = await axiosInstance.get(
         `${import.meta.env.VITE_API_URL}/pelanggan`
       );
       setPelangganList(result.data.data);
@@ -56,7 +56,7 @@ const EditPesanan = () => {
     setErrors({});
 
     try {
-      await axios.put(
+      await axiosInstance.put(
         `${import.meta.env.VITE_API_URL}/pesanan/${uuid}`,
         {
           tanggal,
